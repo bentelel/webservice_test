@@ -3,7 +3,7 @@ name: Build and Publish Docker Image
 on:
   push:
     branches:
-      - main  # Change this to the branch you want to trigger the build on (e.g., main or master)
+      - master  # Change this to the branch you want to trigger the build on (e.g., main or master)
 
 jobs:
   build:
