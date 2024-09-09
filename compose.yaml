@@ -1,17 +1,42 @@
 services:
   watchtower:
-    image: containrrr/watchtower
+    image: containerrr/watchtower:latest
     command:
-      - "--label-enable"
+      - "label:enable"
       - "--interval"
       - "30"
-      - "--rolling-restart"
+      # - "rollnig-restart"
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - var/run/docker.sock:var/run/docker.sock
+#  reverse-proxy:
+    #    image: traefik:v3.1
+    #    command:
+      #      - "--api.insecure=true"
+      #      - "--providers.docker"
+      #      - "--providers.docker.exposedbydefault=false"
+      #      - "--entryPoints.websecure.address=:443"
+      #      - "--certificateresolvers.myresolver.acme.tlschallenge=true"
+      #      - "--certificateresolvers.myresolver.acme.email=lukas@lbentele.eu"
+      #      - "--certificateresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      #      - "--entrypoints.web.address=:80"
+      #      - "--entrypoints.web.http.redirections.entrypoints.to=websecure"
+      #      - "--entrypoints.web.http.redirections.entrypoints.scheme=https"
+      #    ports:
+      #      - "80:80"
+      #      - "443:443"
+      #    volumes:
+      #      - letsencrypt:/letsencrypt
+      #      - /var/run/docker.sock:/var/run/docker.sock
   webservice_test:
-    image: github.com/bentelel/webservice_test@v0.0.1
+    image: ghcr.io/bentelel/webservice_test:latest
     labels:
-      - "com.centurylinklabs.watchtower.enable=true"
+      - "traefik.enable=true"
+      - "traefik.http.routers.webservice_test.rule=Host(`lbentele.eu`)"
+      - "traefik.http.routers.webservice_test.entrypoints=websecure"
+      - "traefik.http.routers.webservice_test.tls.certresolver=myresolver"
+      -"com.centurylinklabs.watchtower.enable=true"
     deploy:
-      mode: replicated
-      replicas: 3
+      - mode: replicated
+      - replicas: 3
+volumes:
+  letsencrypt:
