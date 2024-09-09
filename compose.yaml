@@ -1,7 +1,18 @@
 services:
+  watchtower:
+    image: containrrr/watchtower
+    command:
+      - "--label-enable"
+      - "--interval"
+      - "30"
+      - "rolling-restart"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
   web:
     image: github.com/bentelel/webservice_test@v0.0.1
     ports:
       - "80:80"
       - "8080:8080"
-
+    deploy:
+      mode: replicated
+      replicas: 3
