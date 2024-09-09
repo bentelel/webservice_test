@@ -30,13 +30,13 @@ services:
   webservice_test:
     image: ghcr.io/bentelel/webservice_test:latest
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.webservice_test.rule=Host(`lbentele.eu`)"
-      - "traefik.http.routers.webservice_test.entrypoints=websecure"
-      - "traefik.http.routers.webservice_test.tls.certresolver=myresolver"
+      #      - "traefik.enable=true"
+      #      - "traefik.http.routers.webservice_test.rule=Host(`lbentele.eu`)"
+      #      - "traefik.http.routers.webservice_test.entrypoints=websecure"
+      #      - "traefik.http.routers.webservice_test.tls.certresolver=myresolver"
       -"com.centurylinklabs.watchtower.enable=true"
-    deploy:
-      - mode: replicated
-      - replicas: 3
-volumes:
-  letsencrypt:
+      #    deploy:
+      #      - mode: replicated
+      #      - replicas: 3
+      #volumes:
+      #  letsencrypt:
