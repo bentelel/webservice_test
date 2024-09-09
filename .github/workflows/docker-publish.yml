@@ -12,7 +12,7 @@ jobs:
     steps:
     # Checkout the repository
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout
 
     # Log in to GitHub Container Registry (GHCR)
     - name: Log in to GitHub Container Registry
