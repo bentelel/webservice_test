@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   web:
     image: github.com/bentelel/webservice_test@v0.0.1
